@@ -12,7 +12,8 @@ class App extends React.Component {
     const number = Math.floor(Math.random() * this.state.divination.length);
     console.log(number);
     this.setState({
-      active: `${number}`
+      active: `${number}`,
+      text: ""
     });
   };
   handleTextChange = e => {
@@ -28,13 +29,18 @@ class App extends React.Component {
       alert(`Ta wróżba jest już dodana`);
     } else if (text) {
       divination.push(text);
-      this.state.text = "";
+      this.setState({
+        text: ""
+      });
       alert(
         `Dodano wróżbę. Obecne wróżby to:${divination.map(item => ` ${item}`)}`
       );
     } else {
       alert(`Nie można dodać pustej wróżby`);
     }
+    this.setState({
+      text: ""
+    });
     return divination;
   };
   render() {
@@ -55,7 +61,11 @@ class App extends React.Component {
           Dodaj wróżbę
         </button>
         <br />
-        <h1>{this.state.divination[this.state.active]}</h1>
+        {this.state.divination[this.state.active] ? (
+          <h1>{this.state.divination[this.state.active]}</h1>
+        ) : (
+          ""
+        )}
       </div>
     );
   }
